@@ -21,7 +21,7 @@ export function cf_pages() {
 				.copy(`${process.cwd()}/.svelte-kit/output/client`, target_client)
 				.map((f) => f.replace(`${target_client}/`, ''));
 
-			// returns nothinbg, very sad
+			// returns nothing, very sad
 			const prerendered = await utils.prerender({
 				dest: `${target_client}/`
 			});
@@ -29,9 +29,8 @@ export function cf_pages() {
 			const static_assets = [...static_files, ...client_files];
 			const assets = `const ASSETS = new Set(${JSON.stringify(static_assets)});\n`;
 			const worker = readFileSync(join(files, 'worker.js'), { encoding: 'utf-8' });
-			console.log(worker);
+
 			writeFileSync(join(target_dir, 'server.js'), assets + worker);
-			console.log(static_files, client_files, prerendered);
 		}
 	};
 }
