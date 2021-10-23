@@ -2,26 +2,6 @@ import { join } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 
-export function copy(from, to, filter = () => true) {
-	if (!fs.existsSync(from)) return [];
-	if (!filter(path.basename(from))) return [];
-
-	const files = [];
-	const stats = fs.statSync(from);
-
-	if (stats.isDirectory()) {
-		fs.readdirSync(from).forEach((file) => {
-			files.push(...copy(path.join(from, file), path.join(to, file)));
-		});
-	} else {
-		mkdirp(path.dirname(to));
-		fs.copyFileSync(from, to);
-		files.push(to);
-	}
-
-	return files;
-}
-
 export function cf_pages() {
 	return {
 		name: 'cloudflare-pages-adapter',
