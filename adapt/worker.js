@@ -37,9 +37,9 @@ export default {
 					'\n' +
 					JSON.stringify(
 						{
-							host: req.host,
-							path: req.pathname,
-							query: req.searchParams,
+							host: JSON.stringify(req.host),
+							path: JSON.stringify(req.pathname),
+							query: JSON.stringify(req.searchParams),
 							rawBody: await read(req),
 							headers: Object.fromEntries(req.headers),
 							method: req.method
