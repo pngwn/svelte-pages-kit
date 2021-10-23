@@ -19,12 +19,8 @@
 			</picture>
 		</div>
 
-		to your new<br />SvelteKit app
+		SvelteKit on<br /> Cloudflare Pages
 	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
 
 	<Counter />
 </section>
