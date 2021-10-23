@@ -5,9 +5,9 @@ init();
 export default {
 	async fetch(req, env) {
 		const url = new URL(req.url);
-
+		console.log(ASSETS, url);
 		// check generated asset_set for static files
-		if (url.pathname.substring(1).startsWith('assets')) {
+		if (ASSETS.has(url.pathname.substring(1))) {
 			return env.ASSETS.fetch(req);
 		}
 
@@ -37,3 +37,22 @@ export default {
 		});
 	}
 };
+
+async function read(request) {
+	return new Uint8Array(await request.arrayBuffer());
+}
+
+function makeHeaders(headers) {
+	const result = new Headers();
+	for (const header in headers) {
+		const value = headers[header];
+		if (typeof value === 'string') {
+			result.set(header, value);
+			continue;
+		}
+		for (const sub of value) {
+			result.append(header, sub);
+		}
+	}
+	return result;
+}
