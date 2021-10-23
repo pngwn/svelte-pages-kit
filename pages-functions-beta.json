@@ -1,0 +1,4 @@
+{
+	"entryPoint": "./.svelte-kit/cf-pages/server.js",
+	"baseURL": "/"
+}
