@@ -29,7 +29,24 @@ export default {
 			}
 		} catch (e) {
 			return new Response(
-				'Error rendering route:' + (e.message || e.toString()) + e.stack + JSON.stringify(e),
+				'Error rendering route:' +
+					(e.message || e.toString()) +
+					e.stack +
+					'\n' +
+					JSON.stringify(e) +
+					'\n' +
+					JSON.stringify(
+						{
+							host: req.host,
+							path: req.pathname,
+							query: req.searchParams,
+							rawBody: await read(req),
+							headers: Object.fromEntries(req.headers),
+							method: req.method
+						},
+						null,
+						2
+					),
 				{ status: 500 }
 			);
 		}
