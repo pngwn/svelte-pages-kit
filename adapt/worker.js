@@ -8,7 +8,7 @@ export default {
 		console.log(ASSETS, url);
 		// check generated asset_set for static files
 		if (ASSETS.has(url.pathname.substring(1))) {
-			// return env.ASSETS.fetch(req);
+			return env.ASSETS.fetch(req);
 		}
 
 		try {
