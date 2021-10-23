@@ -1,6 +1,7 @@
 import { join } from 'path';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
+import esbuild from 'esbuild';
 
 export function cf_pages() {
 	return {
@@ -26,9 +27,22 @@ export function cf_pages() {
 
 			const static_assets = [...static_files, ...client_files];
 			const assets = `const ASSETS = new Set(${JSON.stringify(static_assets)});\n`;
+
 			const worker = readFileSync(join(files, 'worker.js'), { encoding: 'utf-8' });
 
-			writeFileSync(join(target_dir, 'server.js'), assets + worker);
+			mkdirSync(join(target_dir, '_tmp'));
+			writeFileSync(join(target_dir, '_tmp', 'server.js'), assets + worker);
+
+			const default_options = {
+				entryPoints: [`${target_dir}/_tmp/server.js`],
+				outfile: `${target_dir}/server.js`,
+				bundle: true,
+				format: 'esm',
+				target: 'es2020',
+				platform: 'browser'
+			};
+
+			await esbuild.build(default_options);
 		}
 	};
 }
