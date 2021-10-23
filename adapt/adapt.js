@@ -11,8 +11,6 @@ export function cf_pages() {
 			const target_client = join(target_dir, 'client');
 			utils.rimraf(target_dir);
 
-			console.log(utils, config, config.kit.files);
-
 			const static_files = utils
 				.copy(config.kit.files.assets, target_client)
 				.map((f) => f.replace(`${target_client}/`, ''));
