@@ -8,7 +8,7 @@ export default {
 		console.log(ASSETS, url);
 		// check generated asset_set for static files
 		if (ASSETS.has(url.pathname.substring(1))) {
-			return env.ASSETS.fetch(req);
+			// return env.ASSETS.fetch(req);
 		}
 
 		try {
@@ -28,27 +28,7 @@ export default {
 				});
 			}
 		} catch (e) {
-			return new Response(
-				'Error rendering route:' +
-					(e.message || e.toString()) +
-					e.stack +
-					'\n' +
-					JSON.stringify(e) +
-					'\n' +
-					JSON.stringify(
-						{
-							host: JSON.stringify(req.host),
-							path: JSON.stringify(req.pathname),
-							query: JSON.stringify(req.searchParams),
-							rawBody: await read(req),
-							headers: Object.fromEntries(req.headers),
-							method: req.method
-						},
-						null,
-						2
-					),
-				{ status: 500 }
-			);
+			return new Response('Error rendering route:' + (e.message || e.toString()), { status: 500 });
 		}
 
 		return new Response({
