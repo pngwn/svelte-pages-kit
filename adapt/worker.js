@@ -13,9 +13,9 @@ export default {
 
 		try {
 			const rendered = await render({
-				host: req.host,
-				path: req.pathname,
-				query: req.searchParams,
+				host: url.host || '',
+				path: url.pathname || '',
+				query: url.searchParams || '',
 				rawBody: await read(req),
 				headers: Object.fromEntries(req.headers),
 				method: req.method
