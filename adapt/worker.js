@@ -6,13 +6,9 @@ export default {
 	async fetch(req, env) {
 		const url = new URL(req.url);
 		console.log(ASSETS, url);
-
-		if (req.method === 'GET') {
-			try {
-				return env.ASSETS.fetch(req);
-			} catch (e) {
-				// we should catch anything that isn't 'notfound' but testing
-			}
+		// check generated asset_set for static files
+		if (ASSETS.has(url.pathname.substring(1))) {
+			return env.ASSETS.fetch(req);
 		}
 
 		try {
