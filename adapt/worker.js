@@ -7,7 +7,7 @@ export default {
 		const url = new URL(req.url);
 		console.log(ASSETS, url);
 
-		if (request.method === 'GET') {
+		if (req.method === 'GET') {
 			try {
 				return env.ASSETS.fetch(req);
 			} catch (e) {
