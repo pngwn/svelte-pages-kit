@@ -5,10 +5,11 @@ init();
 export default {
 	async fetch(req, env) {
 		const url = new URL(req.url);
-		console.log(ASSETS, url);
 		// check generated asset_set for static files
-		if (ASSETS.has(url.pathname.substring(1))) {
-			return env.ASSETS.fetch(req);
+		if (request.method === 'GET') {
+			try {
+				return env.ASSETS.fetch(req);
+			} catch (e) {}
 		}
 
 		try {
