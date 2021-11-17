@@ -6,7 +6,7 @@ export default {
 	async fetch(req, env) {
 		const url = new URL(req.url);
 		// check generated asset_set for static files
-		if (request.method === 'GET') {
+		if (req.method === 'GET') {
 			try {
 				return env.ASSETS.fetch(req);
 			} catch (e) {}
